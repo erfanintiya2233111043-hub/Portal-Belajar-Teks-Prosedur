@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dapur Prosedur - Game Latihan Teks Prosedur</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#dcebd0;--card:#fff;--ink:#3a2418;--sambal:#c8362b;--daun:#2f6b3a;--kunyit:#f2b01e;--soft:#eef5e6;--line:#b9d1a6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d2b1e;--card:#2a3a2b;--ink:#f6ead8;--soft:#223223;--line:#3f5a40}}
+:root[data-theme="dark"]{--bg:#1d2b1e;--card:#2a3a2b;--ink:#f6ead8;--soft:#223223;--line:#3f5a40}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:17px;line-height:1.5}
+h1,h2,.pill b{font-family:'Baloo 2',Nunito,system-ui,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+.top{display:flex;gap:10px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 0;z-index:2}
+.pill{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:4px 14px;text-align:center}
+.pill small{display:block;font-size:12px;opacity:.7}
+.pill b{font-size:26px;line-height:1.1;color:var(--sambal)}
+.bar{flex:1;height:14px;background:var(--card);border:2px solid var(--line);border-radius:10px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--daun);transition:width .3s}
+.card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:20px;margin:12px 0}
+h1{font-size:44px;line-height:1;margin:0 0 8px;color:var(--sambal)}
+h2{font-size:24px;margin:0 0 6px}
+.tag{display:inline-block;background:var(--kunyit);color:#3a2418;border-radius:999px;padding:2px 12px;font-weight:700;font-size:14px}
+button,input{font:inherit}
+.btn{background:var(--sambal);color:#fff;border:0;border-radius:16px;padding:12px 22px;font-weight:700;font-size:18px;cursor:pointer;box-shadow:0 4px 0 #8f2119}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #8f2119}
+.btn.alt{background:var(--daun);box-shadow:0 4px 0 #1f4a28}
+input{width:100%;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--soft);color:var(--ink);margin:8px 0 14px}
+.opt,.step{display:block;width:100%;text-align:left;background:var(--soft);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:8px 0;cursor:pointer}
+.opt:hover,.step:hover{border-color:var(--daun)}
+.opt.ok{background:#bfe6c0;border-color:var(--daun);color:#14341a}
+.opt.no{background:#f6c4be;border-color:var(--sambal);color:#5a1510}
+.step.shake{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.done{background:#bfe6c0;color:#14341a;border:2px solid var(--daun);border-radius:14px;padding:10px 14px;margin:8px 0}
+.fb{margin-top:12px;padding:12px;border-radius:14px;background:var(--soft);border-left:6px solid var(--kunyit)}
+.big{font-family:'Baloo 2',Nunito,sans-serif;font-size:88px;line-height:1;color:var(--sambal);margin:0}
+.row{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:6px 0}
+.hide{display:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div id="hud" class="top hide">
+  <div class="pill"><small>Skor</small><b id="sc">0</b></div>
+  <div class="bar" aria-label="Kemajuan"><i id="pg"></i></div>
+ </div>
+ <main id="app"></main>
+</div>
+<script>
+const SETS=[
+{t:"Cara Membuat Teh Manis",s:["Siapkan gelas, teh celup, dan gula pasir.","Masukkan teh celup ke dalam gelas.","Tuangkan air panas hingga gelas hampir penuh.","Diamkan selama tiga menit, lalu angkat teh celupnya.","Tambahkan satu sendok gula, kemudian aduk hingga larut."]},
+{t:"Cara Memasak Mi Instan",s:["Didihkan dua gelas air di dalam panci.","Masukkan mi ke dalam air mendidih.","Masak selama tiga menit hingga mi lunak.","Tiriskan mi, lalu pindahkan ke mangkuk.","Campurkan bumbu, lalu aduk hingga rata."]}];
+const QZ=[
+{q:"Bagian teks prosedur yang berisi daftar alat dan bahan disebut ...",a:"Bahan dan alat",w:["Tujuan","Langkah-langkah","Penutup"],e:"Teks prosedur terdiri atas tujuan, alat dan bahan, serta langkah-langkah."},
+{q:"Kalimat pada bagian langkah-langkah umumnya berbentuk ...",a:"Kalimat perintah",w:["Kalimat tanya","Kalimat berita","Kalimat seru"],e:"Langkah berisi instruksi, jadi memakai kalimat perintah (imperatif)."},
+{q:"Kata yang tepat untuk menunjukkan urutan langkah adalah ...",a:"Kemudian",w:["Karena","Sebaliknya","Meskipun"],e:"Kata penanda urutan (temporal): pertama, kemudian, selanjutnya, setelah itu, terakhir."},
+{q:"Manakah kalimat langkah yang tepat?",a:"Aduklah adonan hingga rata.",w:["Adonan diaduk oleh ibu kemarin.","Adonan itu sangat enak sekali.","Apakah adonan sudah rata?"],e:"Kalimat langkah memakai kata kerja perintah, bukan kalimat pasif, deskripsi, atau tanya."},
+{q:"Tujuan utama teks prosedur adalah ...",a:"Memberi petunjuk cara melakukan sesuatu",w:["Menceritakan pengalaman pribadi","Membujuk pembaca membeli sesuatu","Menggambarkan keindahan suatu tempat"],e:"Teks prosedur menuntun pembaca melakukan atau membuat sesuatu secara berurutan."},
+{q:"Judul teks prosedur yang tepat adalah ...",a:"Cara Membuat Telur Dadar",w:["Telur Dadar Kesukaanku","Sejarah Telur Dadar","Mengapa Telur Itu Bergizi"],e:"Judul teks prosedur biasanya diawali \"Cara\" atau \"Langkah-langkah\"."},
+{q:"Kata yang BUKAN penanda urutan adalah ...",a:"Sebaliknya",w:["Pertama","Setelah itu","Akhirnya"],e:"\"Sebaliknya\" menyatakan pertentangan, bukan urutan."},
+{q:"Kalimat \"Jangan masukkan air terlalu banyak\" termasuk ...",a:"Kalimat larangan (perintah negatif)",w:["Kalimat tanya","Kalimat pasif","Kalimat majemuk bertingkat"],e:"Kata \"jangan\" menandai perintah yang melarang."}];
+const $=id=>document.getElementById(id),app=$('app');
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const TOTAL=SETS.length+QZ.length;
+let name,score,live,step,ordPts,quizPts,wrongList;
+function hud(){ $('sc').textContent=score+live; $('pg').style.width=(step/TOTAL*100)+'%' }
+function start(){
+ app.innerHTML=`<div class="card"><span class="tag">Latihan Bahasa Indonesia</span><h1>Dapur Prosedur</h1>
+ <p>Jadilah koki teks prosedur! Susun langkah masak dengan urutan yang benar, lalu jawab kuis tentang struktur dan kebahasaannya. Skor penuh <b>100</b>.</p>
+ <label for="nm"><b>Namamu</b></label><input id="nm" maxlength="30" placeholder="Tulis nama lengkap" autocomplete="name">
+ <button class="btn" id="go">Mulai memasak</button></div>`;
+ $('hud').classList.add('hide');
+ $('go').onclick=()=>{name=$('nm').value.trim()||'Siswa';score=0;live=0;step=0;ordPts=0;quizPts=0;wrongList=[];$('hud').classList.remove('hide');order(0)};
+}
+function order(i){
+ const S=SETS[i];let next=0,mist=0;live=10;hud();
+ app.innerHTML=`<div class="card"><span class="tag">Tantangan ${i+1}: Susun Urutan</span><h2>${S.t}</h2>
+ <p>Ketuk langkah sesuai urutan yang benar, mulai dari langkah pertama. Salah ketuk mengurangi 2 poin.</p>
+ <div id="done"></div><div id="pool"></div></div>`;
+ const pool=$('pool');
+ shuf(S.s.map((t,k)=>({t,k}))).forEach(o=>{
+  const b=document.createElement('button');b.className='step';b.textContent=o.t;
+  b.onclick=()=>{
+   if(o.k===next){next++;b.remove();const d=document.createElement('div');d.className='done';d.textContent=next+'. '+o.t;$('done').append(d);
+    if(next===S.s.length){const p=Math.max(0,10-2*mist);ordPts+=p;score+=p;live=0;step++;hud();
+     const n=document.createElement('div');n.className='fb';n.innerHTML=`Selesai! Kamu mendapat <b>${p}</b> poin dari 10 (${mist} kesalahan).<br><br><button class="btn alt" id="nx">Lanjut</button>`;
+     $('pool').append(n);$('nx').onclick=()=>i+1<SETS.length?order(i+1):quiz(0)}
+   }else{mist++;live=Math.max(0,10-2*mist);hud();b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+  };pool.append(b)});
+}
+function quiz(i){
+ const Q=QZ[i];hud();
+ app.innerHTML=`<div class="card"><span class="tag">Kuis ${i+1} dari ${QZ.length}</span><h2>${Q.q}</h2><div id="ops"></div><div id="fb"></div></div>`;
+ shuf([{t:Q.a,c:1},...Q.w.map(t=>({t,c:0}))]).forEach(o=>{
+  const b=document.createElement('button');b.className='opt';b.textContent=o.t;
+  b.onclick=()=>{
+   document.querySelectorAll('.opt').forEach(x=>{x.disabled=true;x.style.cursor='default';if(x.textContent===Q.a)x.classList.add('ok')});
+   if(o.c){score+=10;quizPts+=10}else{b.classList.add('no');wrongList.push(Q)}
+   step++;hud();
+   $('fb').innerHTML=`<div class="fb"><b>${o.c?'Benar! +10 poin':'Belum tepat.'}</b><br>${Q.e}<br><br><button class="btn alt" id="nx">${i+1<QZ.length?'Lanjut':'Lihat skor akhir'}</button></div>`;
+   $('nx').onclick=()=>i+1<QZ.length?quiz(i+1):result();
+  };$('ops').append(b)});
+}
+function result(){
+ const g=score>=90?['Master Chef','Hebat sekali! Kamu menguasai teks prosedur.']:score>=70?['Koki Handal','Bagus! Tinggal sedikit lagi menuju sempurna.']:score>=50?['Koki Magang','Cukup baik. Baca ulang materinya, lalu coba lagi.']:['Calon Koki','Jangan menyerah. Pelajari struktur dan kata kerja perintah, lalu coba lagi.'];
+ const txt=`Skor Dapur Prosedur - ${name}: ${score}/100 (${g[0]}). Urutan ${ordPts}/20, Kuis ${quizPts}/80.`;
+ $('pg').style.width='100%';
+ app.innerHTML=`<div class="card" style="text-align:center"><span class="tag">${g[0]}</span><p class="big">${score}</p><p>dari 100 poin, <b>${name}</b></p><p>${g[1]}</p></div>
+ <div class="card"><div class="row"><span>Susun urutan</span><b>${ordPts} / 20</b></div><div class="row"><span>Kuis</span><b>${quizPts} / 80</b></div>
+ ${wrongList.length?'<h2 style="margin-top:14px">Yang perlu diulang</h2>'+wrongList.map(q=>`<p><b>${q.q}</b><br>Jawaban: ${q.a}</p>`).join(''):'<p>Semua kuis benar!</p>'}
+ </div><div class="card"><p>Tunjukkan layar ini kepada gurumu, atau salin skornya.</p>
+ <button class="btn alt" id="cp">Salin skor</button> <button class="btn" id="re">Main lagi</button><p id="ms" style="min-height:1.5em"></p></div>`;
+ $('re').onclick=start;
+ $('cp').onclick=()=>{const ok=()=>$('ms').textContent='Skor tersalin.';try{navigator.clipboard.writeText(txt).then(ok,()=>$('ms').textContent=txt)}catch(e){$('ms').textContent=txt}};
+}
+start();
+</script>
+</body>
+</html>
