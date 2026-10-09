@@ -109,7 +109,6 @@ elif menu == "Presensi":
     st.write("Klik tombol di bawah untuk mengisi formulir kehadiran siswa:")
     st.link_button("📝 Buka Google Form Presensi", "https://docs.google.com/forms/d/e/1FAIpQLSfxP_VxR9j-FxgkbjNGGhLGPsE9NxV6bNDyUuyP60r0jcNAIg/viewform?usp=header", use_container_width=True)
 
-```python
 # --- ICE BREAKING ---
 elif menu == "Ice Breaking":
     import streamlit as st
