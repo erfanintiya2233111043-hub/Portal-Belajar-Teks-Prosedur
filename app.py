@@ -96,34 +96,64 @@ if menu == "Beranda":
 
 # --- PRESENSI ---
 elif menu == "Presensi":
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #f0f9ff 100%) !important;
+        background-image: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     st.header("📋 Presensi Kehadiran Siswa")
-    st.write("Silakan isi formulir kehadiran di bawah ini sebelum memulai kegiatan pembelajaran.")
-    
-    with st.form("presensi_form"):
-        nama = st.text_input("Nama Lengkap:")
-        kelas = st.selectbox("Kelas", ["VII-1", "VII-2", "VII-3", "VII-4", "VII-5", "Lainnya"])
-        nisn = st.text_input("NISN / Nomor Absen")
-        keterangan = st.radio("Keterangan Kehadiran", ["Hadir", "Izin", "Sakit"])
-        submitted = st.form_submit_button("Kirim Presensi")
-        
-        if submitted:
-            if nama and nisn:
-                st.success(f"Presensi berhasil dicatat untuk {nama} ({kelas}) - Status: {keterangan}")
-            else:
-                st.error("Mohon lengkapi Nama dan NISN/Nomor Absen!")
+    st.write("Klik tombol di bawah untuk mengisi formulir kehadiran siswa:")
+    st.link_button("📝 Buka Google Form Presensi", "https://docs.google.com/forms/d/e/1FAIpQLSfxP_VxR9j-FxgkbjNGGhLGPsE9NxV6bNDyUuyP60r0jcNAIg/viewform?usp=header", use_container_width=True)
 
 # --- ICE BREAKING ---
 elif menu == "Ice Breaking":
-    st.header("🎮 Ice Breaking: Kuis Tebak Kata Teks Prosedur")
-    st.write("Segarkan pikiranmu sebelum belajar!")
-    
-    q1 = st.radio("1. Kata kerja yang berisi perintah atau ajakan disebut...", ["Imperatif", "Deklaratif", "Interogatif", "Pasif"])
-    if q1 == "Imperatif":
-        st.success("Benar! 🎉 Kata kerja imperatif adalah kata kerja perintah.")
-    
-    q2 = st.radio("2. Kata penghubung yang menyatakan urutan waktu (seperti *kemudian, setelah itu*) disebut...", ["Konjungsi Temporal", "Konjungsi Kausalitas", "Kata Benda", "Kata Sifat"])
-    if q2 == "Konjungsi Temporal":
-        st.success("Tepat sekali! 👍")
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fff1f2 100%) !important;
+        background-image: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.header("🎮 Ice Breaking & Hiburan")
+    st.write("Yuk, rileks sejenak sebelum atau sesudah belajar!")
+
+    # Tab 1: Gim Ice Breaking | Tab 2: Gim Ice Breaking Games | Tab 3: Video & AI
+    tab1, tab2, tab3 = st.tabs(["🎲 Ice Breaking", "🎯 Ice Breaking Games", "🎬 Video & AI"])
+
+    # 1. Menampilkan file assets/Ice Breaking.html
+    with tab1:
+        try:
+            with open("assets/Ice Breaking.html", "r", encoding="utf-8") as f:
+                html_game1 = f.read()
+            components.html(html_game1, height=650, scrolling=True)
+        except FileNotFoundError:
+            st.error("File 'assets/Ice Breaking.html' tidak ditemukan di folder assets.")
+
+    # 2. Menampilkan file assets/Ice Breaking Games.html
+    with tab2:
+        try:
+            with open("assets/Ice Breaking Games.html", "r", encoding="utf-8") as f:
+                html_game2 = f.read()
+            components.html(html_game2, height=650, scrolling=True)
+        except FileNotFoundError:
+            st.error("File 'assets/Ice Breaking Games.html' tidak ditemukan di folder assets.")
+
+    # 3. Menampilkan Link YouTube & AI
+    with tab3:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("🎬 Video Seru")
+            st.link_button("▶️ Tonton di YouTube", "https://youtu.be/PV9WzWksz0c?feature=shared", use_container_width=True)
+
+        with col2:
+            st.subheader("🤖 AI Generator")
+            st.link_button("✨ Buka Tool AI", "https://gemini.google.com", use_container_width=True)
 
 # --- MODUL PEMBELAJARAN ---
 elif menu == "Modul Pembelajaran":
@@ -187,16 +217,20 @@ elif menu == "Analisis Teks":
         else:
             st.warning("Masukkan teks prosedur terlebih dahulu.")
 
-# --- LKPD ---
+ --- LKPD ---
 elif menu == "LKPD":
-    st.header("📝 Lembar Kerja Peserta Didik (LKPD)")
-    st.write("Kerjakan tugas lembar kerja untuk menguji pemahamanmu.")
-    
     st.markdown("""
-    ### Tugas LKPD:
-    1. Bacalah salah satu teks prosedur yang ada di menu **Materi**.
-    2. Identifikasilah **Struktur** (Tujuan, Bahan/Alat, Langkah-langkah, Penutup) dari teks tersebut!
-    3. Tentukan 3 kalimat yang memuat **Kata Kerja Imperatif**!
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #f0fdfa 100%) !important;
+        background-image: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.header("📝 Lembar Kerja Peserta Didik (LKPD)")
+    st.write("Kerjakan latihan interaktif berikut secara online:")
+    st.link_button("🎮 Buka LKPD Interaktif (Educaplay)", "https://www.educaplay.com/learning-resources/22297713-lk_kelas_c.html", use_container_width=True)
     """)
 
 # --- TUGAS PRAKTIK ---
