@@ -56,12 +56,31 @@ def read_file(path):
 
 # --- BERANDA ---
 if menu == "Beranda":
+    # Custom CSS untuk Background Polkadot Lucu & Warna Ceria
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f7f9fc;
+        background-image: radial-gradient(#ffb6c1 2px, transparent 2px), radial-gradient(#87cefa 2px, #f7f9fc 2px);
+        background-size: 50px 50px;
+        background-position: 0 0, 25px 25px;
+    }
+    .main-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        margin-bottom: 15px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
     st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    # Animasi Siswa SMP Ceria
+    # Animasi Lucu Siswa & Belajar (URL Asli Jalan)
     st.image(
-        "https://example.com/smp_animation.gif",  # Ganti dengan URL animasi GIF pilihanmu
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTY3MnZ3czc2ZXp2OHhpaHRidm9qajE2eTdrdHdtN24xaHF4OWc1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif",
         caption="🎓 Belajar Teks Prosedur Jadi Lebih Seru, Cepat, dan Pintar!",
         use_column_width=True
     )
@@ -74,7 +93,7 @@ if menu == "Beranda":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.info("📚 **1. Pahami Struktur & Ciri (A-Z)**\nPelajari langkah-langkah membuat teks prosedur yang runtut, lengkap dari tujuan sampai penutup!")
+        st.info("📚 **1. Pahami Struktur & Ciri**\nPelajari langkah-langkah membuat teks prosedur yang runtut, lengkap dari tujuan sampai penutup!")
         st.success("✏️ **2. Latihan Praktis & LKPD**\nAsah keterampilan menulis teks prosedur dengan tugas interaktif yang siap dikerjakan.")
         
     with col2:
