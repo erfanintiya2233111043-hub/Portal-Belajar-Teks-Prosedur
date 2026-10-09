@@ -112,8 +112,8 @@ elif menu == "Presensi":
     st.write("Silakan isi formulir kehadiran di bawah ini sebelum memulai kegiatan pembelajaran.")
     
     with st.form("presensi_form"):
-        nama = st.text_input("Nama Lengkap")
-        kelas = st.selectbox("Kelas", ["VII-1", "VII-2", "VII-3", "VII-4", "VII-5", Lainnya"])
+        nama = st.text_input("Nama Lengkap:")
+        kelas = st.selectbox("Kelas", ["VII-1", "VII-2", "VII-3", "VII-4", "VII-5", "Lainnya"])
         nisn = st.text_input("NISN / Nomor Absen")
         keterangan = st.radio("Keterangan Kehadiran", ["Hadir", "Izin", "Sakit"])
         submitted = st.form_submit_button("Kirim Presensi")
