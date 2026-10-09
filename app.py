@@ -35,8 +35,8 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-# --- BUKU PANDUAN PORTAL ---
-elif menu == "Buku Panduan":
+# --- BUKU PANDUAN PORTAL (MENU PERTAMA PAKAI IF) ---
+if menu == "Buku Panduan":
     st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -55,6 +55,11 @@ elif menu == "Buku Panduan":
         components.html(html_buku, height=750, scrolling=True)
     except FileNotFoundError:
         st.error("File 'assets/Buku Panduan Portal Belajar Teks Prosedur.html' tidak ditemukan di folder assets.")
+
+# --- BERANDA (SEKARANG PAKAI ELIF) ---
+elif menu == "Beranda":
+    st.title("📌 Portal Belajar Teks Prosedur")
+    # ... lanjutan kode Beranda kamu ...
 
 # 2. Sidebar Navigation
 # --- STYLING SIDEBAR (HIJAU PASTEL) ---
