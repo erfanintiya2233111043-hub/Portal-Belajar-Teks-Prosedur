@@ -123,28 +123,25 @@ elif menu == "Ice Breaking":
     st.header("🎮 Ice Breaking & Hiburan")
     st.write("Yuk, rileks sejenak sebelum atau sesudah belajar!")
 
-    # Tab 1: Gim Ice Breaking | Tab 2: Gim Ice Breaking Games | Tab 3: Video & AI
-    tab1, tab2, tab3 = st.tabs(["🎲 Ice Breaking", "🎯 Ice Breaking Games", "🎬 Video & AI"])
+    tab1, tab2, tab3 = st.tabs(["🎲 Ice Breaking 1", "🎯 Ice Breaking 2", "🎬 Video & AI"])
 
-    # 1. Menampilkan file assets/Ice Breaking.html
+    # File 1: assets/ice_breaking_1.html
     with tab1:
         try:
-            with open("assets/Ice Breaking.html", "r", encoding="utf-8") as f:
-                html_game1 = f.read()
-            components.html(html_game1, height=650, scrolling=True)
+            with open("assets/ice_breaking_1.html", "r", encoding="utf-8") as f:
+                components.html(f.read(), height=650, scrolling=True)
         except FileNotFoundError:
-            st.error("File 'assets/Ice Breaking.html' tidak ditemukan di folder assets.")
+            st.error("File 'assets/ice_breaking_1.html' belum terdeteksi. Pastikan nama file di GitHub sudah diubah.")
 
-    # 2. Menampilkan file assets/Ice Breaking Games.html
+    # File 2: assets/ice_breaking_2.html
     with tab2:
         try:
-            with open("assets/Ice Breaking Games.html", "r", encoding="utf-8") as f:
-                html_game2 = f.read()
-            components.html(html_game2, height=650, scrolling=True)
+            with open("assets/ice_breaking_2.html", "r", encoding="utf-8") as f:
+                components.html(f.read(), height=650, scrolling=True)
         except FileNotFoundError:
-            st.error("File 'assets/Ice Breaking Games.html' tidak ditemukan di folder assets.")
+            st.error("File 'assets/ice_breaking_2.html' belum terdeteksi. Pastikan nama file di GitHub sudah diubah.")
 
-    # 3. Menampilkan Link YouTube & AI
+    # Tab Link Media
     with tab3:
         col1, col2 = st.columns(2)
         with col1:
@@ -230,7 +227,7 @@ elif menu == "LKPD":
 
     st.header("📝 Lembar Kerja Peserta Didik (LKPD)")
     st.write("Kerjakan latihan interaktif berikut secara online:")
-    st.link_button("🎮 Buka LKPD Interaktif (Educaplay)", "https://www.educaplay.com", use_container_width=True)
+    st.link_button("🎮 Buka LKPD Interaktif (Educaplay)", "https://www.educaplay.com/learning-resources/22297713-lk_kelas_c.html", use_container_width=True)
 
 # --- TUGAS PRAKTIK ---
 elif menu == "Tugas Praktik":
