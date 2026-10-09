@@ -35,6 +35,26 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+# --- BUKU PANDUAN PORTAL ---
+elif menu == "Buku Panduan":
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #f0fdfa 100%) !important;
+        background-image: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.header("📘 Buku Panduan Portal Belajar Teks Prosedur")
+    st.write("Berikut adalah tampilan interaktif Buku Panduan penggunaan portal:")
+
+    try:
+        with open("assets/Buku Panduan Portal Belajar Teks Prosedur.html", "r", encoding="utf-8") as f:
+            html_buku = f.read()
+        components.html(html_buku, height=750, scrolling=True)
+    except FileNotFoundError:
+        st.error("File 'assets/Buku Panduan Portal Belajar Teks Prosedur.html' tidak ditemukan di folder assets.")
 
 # 2. Sidebar Navigation
 # --- STYLING SIDEBAR (HIJAU PASTEL) ---
@@ -64,6 +84,7 @@ st.sidebar.caption("Belajar • Berlatih • Berkarya")
 
 # Daftar menu ber-ikon yang dipetakan ke nama menu asli
 menu_options = {
+    "📘 Buku Panduan": "Buku Panduan"
     "🏠 Beranda": "Beranda",
     "📝 Presensi": "Presensi",
     "🎮 Ice Breaking": "Ice Breaking",
