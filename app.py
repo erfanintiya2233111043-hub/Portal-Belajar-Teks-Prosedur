@@ -71,9 +71,9 @@ if menu == "Beranda":
     st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
     st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    # Header Gambar Canva Hasil Desainmu
+    # Header Gambar Canva Hasil Desainmu dari Folder assets
     st.image(
-        "header_beranda.png",
+        "assets/header_beranda.png",
         use_container_width=True
     )
     
