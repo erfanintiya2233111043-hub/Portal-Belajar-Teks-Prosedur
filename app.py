@@ -1,8 +1,12 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import google.generativeai as genai
 import os
+from pathlib import Path
 
-# Configuration (HANYA 1 KALI DI SINI)
+# =========================================================
+# 1. KONFIGURASI HALAMAN & CSS
+# =========================================================
 st.set_page_config(
     page_title="Portal Belajar Teks Prosedur",
     page_icon="📚",
@@ -17,24 +21,80 @@ st.markdown("""
     background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px) !important;
     background-size: 32px 32px !important;
 }
+.main-header {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1E3A8A;
+    margin-bottom: 0px;
+}
+.sub-header {
+    font-size: 1.1rem;
+    color: #4B5563;
+    margin-bottom: 20px;
+}
 </style>
 """, unsafe_allow_html=True)
 
+
+# =========================================================
+# 2. FUNGSI PEMBANTU (HELPER FUNCTION)
+# =========================================================
+def read_file(path):
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    return None
+
+
+# =========================================================
+# 3. NAVIGASI SIDEBAR (HIJAU PASTEL & BUKU PANDUAN DI AWAL)
+# =========================================================
 st.markdown("""
 <style>
-    .main-header {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #1E3A8A;
-        margin-bottom: 0px;
-    }
-    .sub-header {
-        font-size: 1.1rem;
-        color: #4B5563;
-        margin-bottom: 20px;
-    }
+/* Background Navigasi Sidebar Hijau Pastel Lembut */
+[data-testid="stSidebar"] {
+    background-color: #e8f5e9 !important;
+}
+
+/* Warna judul navigasi */
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+    color: #2e7d32 !important;
+}
+
+/* Efek Hover pada Pilihan Navigasi */
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label:hover {
+    background-color: #c8e6c9 !important;
+    border-radius: 8px;
+}
 </style>
 """, unsafe_allow_html=True)
+
+st.sidebar.title("📌 Navigasi Portal")
+st.sidebar.caption("Belajar • Berlatih • Berkarya")
+
+# Buku Panduan ditempatkan paling atas sebagai acuan utama
+menu_options = {
+    "📘 Buku Panduan": "Buku Panduan",
+    "🏠 Beranda": "Beranda",
+    "📝 Presensi": "Presensi",
+    "🎮 Ice Breaking": "Ice Breaking",
+    "📖 Modul Pembelajaran": "Modul Pembelajaran",
+    "📚 Materi": "Materi",
+    "🔍 Analisis Teks": "Analisis Teks",
+    "✍️ LKPD": "LKPD",
+    "🎨 Tugas Praktik": "Tugas Praktik",
+    "🤖 Tanya Biografika": "Tanya Biografika",
+    "🍿 Media Belajar": "Media Belajar"
+}
+
+selected_label = st.sidebar.radio("Pilih Halaman:", list(menu_options.keys()))
+menu = menu_options[selected_label]
+
+
+# =========================================================
+# 4. KONTEN HALAMAN (PEMATAN LOGIKA IF / ELIF)
+# =========================================================
+
 # --- BUKU PANDUAN PORTAL (MENU PERTAMA PAKAI IF) ---
 if menu == "Buku Panduan":
     st.markdown("""
@@ -56,76 +116,18 @@ if menu == "Buku Panduan":
     except FileNotFoundError:
         st.error("File 'assets/Buku Panduan Portal Belajar Teks Prosedur.html' tidak ditemukan di folder assets.")
 
-# --- BERANDA (SEKARANG PAKAI ELIF) ---
+
+# --- BERANDA ---
 elif menu == "Beranda":
-    st.title("📌 Portal Belajar Teks Prosedur")
-    # ... lanjutan kode Beranda kamu ...
-
-# 2. Sidebar Navigation
-# --- STYLING SIDEBAR (HIJAU PASTEL) ---
-st.markdown("""
-<style>
-/* Background Navigasi Sidebar Hijau Pastel Lembut */
-[data-testid="stSidebar"] {
-    background-color: #e8f5e9 !important;
-}
-
-/* Warna judul navigasi */
-[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
-    color: #2e7d32 !important;
-}
-
-/* Efek Hover pada Pilihan Navigasi */
-[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label:hover {
-    background-color: #c8e6c9 !important;
-    border-radius: 8px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# --- NAVIGASI PORTAL DENGAN IKON & PEMETAAN AMAN ---
-st.sidebar.title("📌 Navigasi Portal")
-st.sidebar.caption("Belajar • Berlatih • Berkarya")
-
-# Daftar menu ber-ikon (Buku Panduan paling atas)
-menu_options = {
-    "📘 Buku Panduan": "Buku Panduan",
-    "🏠 Beranda": "Beranda",
-    "📝 Presensi": "Presensi",
-    "🎮 Ice Breaking": "Ice Breaking",
-    "📖 Modul Pembelajaran": "Modul Pembelajaran",
-    "📚 Materi": "Materi",
-    "🔍 Analisis Teks": "Analisis Teks",
-    "✍️ LKPD": "LKPD",
-    "🎨 Tugas Praktik": "Tugas Praktik",
-    "🤖 Tanya Biografika": "Tanya Biografika",
-    "🍿 Media Belajar": "Media Belajar"
-}
-
-# Tampilkan pilihan menu di sidebar
-selected_label = st.sidebar.radio("Pilih Halaman:", list(menu_options.keys()))
-
-# Ambil nama menu asli
-menu = menu_options[selected_label]
-
-# 3. Pages
-if menu == "Beranda":
     st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
     st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    # Header Gambar Canva dari Folder assets
-    st.image(
-        "assets/header_beranda.png",
-        use_container_width=True
-    )
-    
+    st.image("assets/header_beranda.png", use_container_width=True)
     st.markdown("---")
     
-    # Fitur Utama Warna-Warni
     st.markdown("### 🎒 Apa Saja yang BISA Kamu Pelajari di Sini?")
     
     col1, col2 = st.columns(2)
-    
     with col1:
         st.info("📚 **1. Pahami Struktur & Ciri**\nPelajari langkah-langkah membuat teks prosedur yang runtut, lengkap dari tujuan sampai penutup!")
         st.success("✏️ **2. Latihan Praktis & LKPD**\nAsah keterampilan menulis teks prosedur dengan tugas interaktif yang siap dikerjakan.")
@@ -139,6 +141,7 @@ if menu == "Beranda":
     ### 🏫 Yuk, Mulai Belajar!
     Pilih menu navigasi di **sidebar sebelah kiri** 👈 untuk mulai menjelajahi materi, melakukan *ice breaking*, atau bertanya langsung pada **Tanya Biografika**!
     """)
+
 
 # --- PRESENSI ---
 elif menu == "Presensi":
@@ -155,105 +158,56 @@ elif menu == "Presensi":
     st.write("Klik tombol di bawah untuk mengisi formulir kehadiran siswa:")
     st.link_button("📝 Buka Google Form Presensi", "https://docs.google.com/forms/d/e/1FAIpQLSfxP_VxR9j-FxgkbjNGGhLGPsE9NxV6bNDyUuyP60r0jcNAIg/viewform?usp=header", use_container_width=True)
 
+
 # --- ICE BREAKING ---
 elif menu == "Ice Breaking":
-    import streamlit as st
-    import streamlit.components.v1 as components
-    from pathlib import Path
-
-    # Mengatur lokasi folder assets
     BASE_DIR = Path(__file__).resolve().parent
     ASSETS_DIR = BASE_DIR / "assets"
 
-    # Tampilan halaman
     st.markdown("""
-        <style>
-        [data-testid="stAppViewContainer"] {
-            background: linear-gradient(
-                135deg,
-                #fdf2f8 0%,
-                #fce7f3 50%,
-                #fff1f2 100%
-            ) !important;
-        }
-        </style>
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fff1f2 100%) !important;
+        background-image: none !important;
+    }
+    </style>
     """, unsafe_allow_html=True)
 
     st.header("🎮 Ice Breaking & Hiburan")
-    st.write(
-        "Yuk, rileks sejenak sebelum atau sesudah belajar! "
-        "Pilih permainan yang kamu sukai dan bersenang-senanglah! 🎉"
-    )
+    st.write("Yuk, rileks sejenak sebelum atau sesudah belajar! Pilih permainan yang kamu sukai dan bersenang-senanglah! 🎉")
 
-    tab1, tab2, tab3 = st.tabs([
-        "🎲 Ice Breaking 1",
-        "🎯 Ice Breaking 2",
-        "🎬 Video & AI"
-    ])
+    tab1, tab2, tab3 = st.tabs(["🎲 Ice Breaking 1", "🎯 Ice Breaking 2", "🎬 Video & AI"])
 
-    # TAB 1: ICE BREAKING 1
     with tab1:
         st.subheader("🎲 Permainan Seru Pertama")
-
         file_1 = ASSETS_DIR / "ice_breaking_1.html"
-
         if file_1.exists():
             with open(file_1, "r", encoding="utf-8") as f:
-                html_content = f.read()
-
-            components.html(
-                html_content,
-                height=650,
-                scrolling=True
-            )
+                components.html(f.read(), height=650, scrolling=True)
         else:
-            st.error(
-                "File ice_breaking_1.html tidak ditemukan di folder assets."
-            )
+            st.error("File ice_breaking_1.html tidak ditemukan di folder assets.")
 
-    # TAB 2: ICE BREAKING 2
     with tab2:
         st.subheader("🎯 Permainan Seru Kedua")
-
         file_2 = ASSETS_DIR / "ice_breaking_2.html"
-
         if file_2.exists():
             with open(file_2, "r", encoding="utf-8") as f:
-                html_content = f.read()
-
-            components.html(
-                html_content,
-                height=650,
-                scrolling=True
-            )
+                components.html(f.read(), height=650, scrolling=True)
         else:
-            st.error(
-                "File ice_breaking_2.html tidak ditemukan di folder assets."
-            )
+            st.error("File ice_breaking_2.html tidak ditemukan di folder assets.")
 
-    # TAB 3: VIDEO DAN AI
     with tab3:
         col1, col2 = st.columns(2)
-
         with col1:
             st.subheader("🎬 Video Seru")
             st.write("Tonton video untuk menyegarkan pikiran!")
-
-            st.link_button(
-                "▶️ Tonton di YouTube",
-                "https://youtu.be/PV9WzWksz0c?feature=shared",
-                use_container_width=True
-            )
+            st.link_button("▶️ Tonton di YouTube", "https://youtu.be/PV9WzWksz0c?feature=shared", use_container_width=True)
 
         with col2:
             st.subheader("🤖 AI Generator")
             st.write("Coba gunakan AI untuk berkreasi!")
+            st.link_button("✨ Buka Gemini AI", "https://gemini.google.com/", use_container_width=True)
 
-            st.link_button(
-                "✨ Buka Gemini AI",
-                "https://gemini.google.com/",
-                use_container_width=True
-            )
 
 # --- MODUL PEMBELAJARAN ---
 elif menu == "Modul Pembelajaran":
@@ -271,6 +225,7 @@ elif menu == "Modul Pembelajaran":
             )
     else:
         st.info("File Modul Ajar dapat diakses dari menu repositori GitHub kamu.")
+
 
 # --- MATERI ---
 elif menu == "Materi":
@@ -303,6 +258,7 @@ elif menu == "Materi":
             else:
                 st.write(f"Materi {title} siap dipelajari.")
 
+
 # --- ANALISIS TEKS ---
 elif menu == "Analisis Teks":
     st.header("🔍 Analisis Teks Prosedur")
@@ -317,7 +273,8 @@ elif menu == "Analisis Teks":
         else:
             st.warning("Masukkan teks prosedur terlebih dahulu.")
 
- # --- LKPD ---
+
+# --- LKPD ---
 elif menu == "LKPD":
     st.markdown("""
     <style>
@@ -332,9 +289,10 @@ elif menu == "LKPD":
     st.write("Kerjakan latihan interaktif berikut secara online:")
     st.link_button("🎮 Buka LKPD Interaktif (Educaplay)", "https://www.educaplay.com/learning-resources/22297713-lk_kelas_c.html", use_container_width=True)
 
+
 # --- TUGAS PRAKTIK ---
 elif menu == "Tugas Praktik":
-    st.header("📤 Pengumpulkan Tugas Praktik")
+    st.header("📤 Pengumpulan Tugas Praktik")
     st.write("Unggah hasil karya teks prosedur atau scan QR Code di bawah ini.")
     
     qr_path = "PENGUMPULAN TUGAS PRAKTIK/qr_proyek.png.png"
@@ -349,89 +307,85 @@ elif menu == "Tugas Praktik":
         else:
             st.warning("Isi draf teks prosedurmu terlebih dahulu.")
 
+
 # --- TANYA BIOGRAFIKA (AI INTEGRATED) ---
 elif menu == "Tanya Biografika":
-        # Desain Header Full Warna Gradasi
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #FF5E7E, #A060FF, #4DE1FF); padding: 25px; border-radius: 20px; color: white; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
-            <h1 style="color: white; margin: 0; font-size: 32px;">🤖🎨 Tanya Biografika AI 📚✨</h1>
-            <p style="font-size: 18px; margin-top: 8px; font-weight: bold;">Asisten Pintar Pembelajaran Teks Prosedur SMP!</p>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #FF5E7E, #A060FF, #4DE1FF); padding: 25px; border-radius: 20px; color: white; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+        <h1 style="color: white; margin: 0; font-size: 32px;">🤖🎨 Tanya Biografika AI 📚✨</h1>
+        <p style="font-size: 18px; margin-top: 8px; font-weight: bold;">Asisten Pintar Pembelajaran Teks Prosedur SMP!</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("##### 💡 **Coba Tanyakan Hal Ini:**")
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.success("📌 *Apa saja struktur utama Teks Prosedur?*")
+        st.info("📌 *Buatkan contoh Teks Prosedur membuat jus buah!*")
+    with col_b:
+        st.warning("📌 *Apa bedanya kata kerja imperatif dan deklaratif?*")
+        st.error("📌 *Koreksi teks prosedur yang sudah kubuat dong!*")
         
-        # Kartu Rekomendasi Pertanyaan Warna-Warni
-        st.markdown("##### 💡 **Coba Tanyakan Hal Ini:**")
-        col_a, col_b = st.columns(2)
-        with col_a:
-            st.success("📌 *Apa saja struktur utama Teks Prosedur?*")
-            st.info("📌 *Buatkan contoh Teks Prosedur membuat jus buah!*")
-        with col_b:
-            st.warning("📌 *Apa bedanya kata kerja imperatif dan deklaratif?*")
-            st.error("📌 *Koreksi teks prosedur yang sudah kubuat dong!*")
-            
-        st.markdown("---")
+    st.markdown("---")
 
-        # Configure Gemini API Key
-        api_key = None
-        if "GEMINI_API_KEY" in st.secrets:
-            api_key = st.secrets["GEMINI_API_KEY"]
-        elif "GEMINI_API_KEY" in os.environ:
-            api_key = os.environ["GEMINI_API_KEY"]
+    api_key = None
+    if "GEMINI_API_KEY" in st.secrets:
+        api_key = st.secrets["GEMINI_API_KEY"]
+    elif "GEMINI_API_KEY" in os.environ:
+        api_key = os.environ["GEMINI_API_KEY"]
 
-        if not api_key:
-            with st.sidebar.expander("🔑 Input API Key (Opsional)"):
-                user_api_key = st.text_input("Masukkan Gemini API Key:", type="password")
-                if user_api_key:
-                    api_key = user_api_key
+    if not api_key:
+        with st.sidebar.expander("🔑 Input API Key (Opsional)"):
+            user_api_key = st.text_input("Masukkan Gemini API Key:", type="password")
+            if user_api_key:
+                api_key = user_api_key
 
-        if not api_key:
-            st.warning("⚠️ **API Key Gemini belum terpasang.** Silakan atur Secrets di Streamlit Cloud.")
-        else:
-            try:
-                genai.configure(api_key=api_key)
-                model = genai.GenerativeModel(
-                    'gemini-3.8-flash',
-                    system_instruction="""
-                    Kamu adalah Biografika AI, tutor pembelajaran Bahasa Indonesia untuk anak SMP yang sangat ramah, ceria, interaktif, dan penuh semangat!
-                    Tugas utamamu adalah membantu siswa memahami Teks Prosedur dengan contoh yang mudah dipahami anak SMP.
-                    Gunakan emoji yang ramai dan bahasa yang santai namun tetap edukatif.
-                    """
-                )
+    if not api_key:
+        st.warning("⚠️ **API Key Gemini belum terpasang.** Silakan atur Secrets di Streamlit Cloud.")
+    else:
+        try:
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel(
+                'gemini-1.5-flash',
+                system_instruction="""
+                Kamu adalah Biografika AI, tutor pembelajaran Bahasa Indonesia untuk anak SMP yang sangat ramah, ceria, interaktif, dan penuh semangat!
+                Tugas utamamu adalah membantu siswa memahami Teks Prosedur dengan contoh yang mudah dipahami anak SMP.
+                Gunakan emoji yang ramai dan bahasa yang santai namun tetap edukatif.
+                """
+            )
 
-                # Initialize Chat History
-                if "messages" not in st.session_state:
-                    st.session_state.messages = [
-                        {"role": "assistant", "content": "Halo! Saya **Biografika AI** 🤖✨ Siap bantu kamu belajar Teks Prosedur! Ada yang mau ditanyakan hari ini? ✏️📚"}
-                    ]
+            if "messages" not in st.session_state:
+                st.session_state.messages = [
+                    {"role": "assistant", "content": "Halo! Saya **Biografika AI** 🤖✨ Siap bantu kamu belajar Teks Prosedur! Ada yang mau ditanyakan hari ini? ✏️📚"}
+                ]
 
-                # Display Chat History
-                for message in st.session_state.messages:
-                    with st.chat_message(message["role"]):
-                        st.markdown(message["content"])
+            for message in st.session_state.messages:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
 
-                # Chat Input
-                if prompt := st.chat_input("Tanyakan sesuatu tentang Teks Prosedur..."):
-                    st.session_state.messages.append({"role": "user", "content": prompt})
-                    with st.chat_message("user"):
-                        st.markdown(prompt)
+            if prompt := st.chat_input("Tanyakan sesuatu tentang Teks Prosedur..."):
+                st.session_state.messages.append({"role": "user", "content": prompt})
+                with st.chat_message("user"):
+                    st.markdown(prompt)
 
-                    with st.chat_message("assistant"):
-                        message_placeholder = st.empty()
-                        message_placeholder.markdown("🎨 *Biografika AI sedang berpikir...*")
-                        
-                        formatted_history = []
-                        for msg in st.session_state.messages[:-1]:
-                            role = "user" if msg["role"] == "user" else "model"
-                            formatted_history.append({"role": role, "parts": [msg["content"]]})
+                with st.chat_message("assistant"):
+                    message_placeholder = st.empty()
+                    message_placeholder.markdown("🎨 *Biografika AI sedang berpikir...*")
+                    
+                    formatted_history = []
+                    for msg in st.session_state.messages[:-1]:
+                        role = "user" if msg["role"] == "user" else "model"
+                        formatted_history.append({"role": role, "parts": [msg["content"]]})
 
-                        chat = model.start_chat(history=formatted_history)
-                        response = chat.send_message(prompt)
-                        
-                        message_placeholder.markdown(response.text)
-                        st.session_state.messages.append({"role": "assistant", "content": response.text})
+                    chat = model.start_chat(history=formatted_history)
+                    response = chat.send_message(prompt)
+                    
+                    message_placeholder.markdown(response.text)
+                    st.session_state.messages.append({"role": "assistant", "content": response.text})
 
-            except Exception as e:
-                st.error(f"Gagal mendapatkan respons AI: {e}")
+        except Exception as e:
+            st.error(f"Gagal mendapatkan respons AI: {e}")
+
 
 # --- MEDIA BELAJAR ---
 elif menu == "Media Belajar":
