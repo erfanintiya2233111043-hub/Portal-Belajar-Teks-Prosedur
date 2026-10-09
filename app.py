@@ -56,7 +56,7 @@ def read_file(path):
 
 # --- BERANDA ---
 if menu == "Beranda":
-    # Custom CSS untuk Background Polkadot Lucu & Warna Ceria
+    # Custom CSS untuk Background Animasi Siswa SMP & Warna Ceria
     st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -78,9 +78,9 @@ if menu == "Beranda":
     st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
     st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    # Animasi Lucu Siswa & Belajar (URL Asli Jalan)
+    # Foto Ilustrasi Siswa & Suasana Belajar Ceria
     st.image(
-        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTY3MnZ3czc2ZXp2OHhpaHRidm9qajE2eTdrdHdtN24xaHF4OWc1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif",
+        "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200",
         caption="🎓 Belajar Teks Prosedur Jadi Lebih Seru, Cepat, dan Pintar!",
         use_column_width=True
     )
