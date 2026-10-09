@@ -59,9 +59,9 @@ if menu == "Beranda":
     st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
     st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    # Banner Gambar Sekolah & Alat Tulis Ceria
+    # Animasi Siswa SMP Ceria
     st.image(
-        "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1200",
+        "https://example.com/smp_animation.gif",  # Ganti dengan URL animasi GIF pilihanmu
         caption="🎓 Belajar Teks Prosedur Jadi Lebih Seru, Cepat, dan Pintar!",
         use_column_width=True
     )
@@ -211,81 +211,87 @@ elif menu == "Tugas Praktik":
 
 # --- TANYA BIOGRAFIKA (AI INTEGRATED) ---
 elif menu == "Tanya Biografika":
-    st.header("🤖 Tanya Biografika (Asisten AI)")
-    st.caption("Asisten Pintar Pembelajaran Teks Prosedur & Bahasa Indonesia")
-    
-    # Configure Gemini API Key
-    api_key = None
-    if "GEMINI_API_KEY" in st.secrets:
-        api_key = st.secrets["GEMINI_API_KEY"]
-    elif "GEMINI_API_KEY" in os.environ:
-        api_key = os.environ["GEMINI_API_KEY"]
-    
-    if not api_key:
-        with st.sidebar.expander("🔑 Input API Key (Opsional)"):
-            user_api_key = st.text_input("Masukkan Gemini API Key:", type="password")
-            if user_api_key:
-                api_key = user_api_key
+        # Desain Header Full Warna Gradasi
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #FF5E7E, #A060FF, #4DE1FF); padding: 25px; border-radius: 20px; color: white; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <h1 style="color: white; margin: 0; font-size: 32px;">🤖🎨 Tanya Biografika AI 📚✨</h1>
+            <p style="font-size: 18px; margin-top: 8px; font-weight: bold;">Asisten Pintar Pembelajaran Teks Prosedur SMP!</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Kartu Rekomendasi Pertanyaan Warna-Warni
+        st.markdown("##### 💡 **Coba Tanyakan Hal Ini:**")
+        col_a, col_b = st.columns(2)
+        with col_a:
+            st.success("📌 *Apa saja struktur utama Teks Prosedur?*")
+            st.info("📌 *Buatkan contoh Teks Prosedur membuat jus buah!*")
+        with col_b:
+            st.warning("📌 *Apa bedanya kata kerja imperatif dan deklaratif?*")
+            st.error("📌 *Koreksi teks prosedur yang sudah kubuat dong!*")
+            
+        st.markdown("---")
 
-    if not api_key:
-        st.warning("⚠️ **API Key Gemini belum terpasang.**")
-        st.info("""
-        **Cara Mengaktifkan Fitur AI ini:**
-        1. Buka dashboard **Streamlit Cloud** kamu.
-        2. Masuk ke **Manage app** -> **Settings** -> **Secrets**.
-        3. Masukkan kode berikut:
-           ```toml
-           GEMINI_API_KEY = "API_KEY_GEMINI_KAMU"
-           ```
-        4. Simpan (Save) dan refresh aplikasi.
-        """)
-    else:
-        try:
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel('gemini-3.8-flash',
-                system_instruction="""
-                Kamu adalah Biografika AI, tutor pembelajaran Bahasa Indonesia yang ramah, komunikatif, dan cerdas.
-                Tugas utamamu adalah membantu siswa memahami Teks Prosedur (pengertian, tujuan, ciri, kebahasaan, struktur, dan pembuatan teks).
-                Jawablah pertanyaan siswa dengan bahasa yang santun, mudah dipahami, terstruktur, dan edukatif.
-                Jika siswa memberikan draf teks prosedur, berikan masukan konstruktif untuk perbaikannya.
-                """
-            )
-            
-            # Initialize Chat History
-            if "messages" not in st.session_state:
-                st.session_state.messages = [
-                    {"role": "assistant", "content": "Halo! Saya **Biografika AI**, siap membantu kamu belajar Teks Prosedur. Apa yang ingin kamu tanyakan atau diskusikan hari ini?"}
-                ]
-            
-            # Display Chat History
-            for message in st.session_state.messages:
-                with st.chat_message(message["role"]):
-                    st.markdown(message["content"])
-            
-            # User Input Chat Box
-            if prompt := st.chat_input("Tanyakan sesuatu tentang Teks Prosedur..."):
-                st.session_state.messages.append({"role": "user", "content": prompt})
-                with st.chat_message("user"):
-                    st.markdown(prompt)
-                
-                with st.chat_message("assistant"):
-                    with st.spinner("Biografika AI sedang berpikir..."):
-                        try:
-                            history_genai = []
-                            for msg in st.session_state.messages[:-1]:
-                                role = "user" if msg["role"] == "user" else "model"
-                                history_genai.append({"role": role, "parts": [msg["content"]]})
-                            
-                            chat = model.start_chat(history=history_genai)
-                            response = chat.send_message(prompt)
-                            
-                            st.markdown(response.text)
-                            st.session_state.messages.append({"role": "assistant", "content": response.text})
-                        except Exception as e:
-                            st.error(f"Gagal mendapatkan respons AI: {str(e)}")
-                            
-        except Exception as e:
-            st.error(f"Terjadi kesalahan konfigurasi AI: {str(e)}")
+        # Configure Gemini API Key
+        api_key = None
+        if "GEMINI_API_KEY" in st.secrets:
+            api_key = st.secrets["GEMINI_API_KEY"]
+        elif "GEMINI_API_KEY" in os.environ:
+            api_key = os.environ["GEMINI_API_KEY"]
+
+        if not api_key:
+            with st.sidebar.expander("🔑 Input API Key (Opsional)"):
+                user_api_key = st.text_input("Masukkan Gemini API Key:", type="password")
+                if user_api_key:
+                    api_key = user_api_key
+
+        if not api_key:
+            st.warning("⚠️ **API Key Gemini belum terpasang.** Silakan atur Secrets di Streamlit Cloud.")
+        else:
+            try:
+                genai.configure(api_key=api_key)
+                model = genai.GenerativeModel(
+                    'gemini-3.8-flash',
+                    system_instruction="""
+                    Kamu adalah Biografika AI, tutor pembelajaran Bahasa Indonesia untuk anak SMP yang sangat ramah, ceria, interaktif, dan penuh semangat!
+                    Tugas utamamu adalah membantu siswa memahami Teks Prosedur dengan contoh yang mudah dipahami anak SMP.
+                    Gunakan emoji yang ramai dan bahasa yang santai namun tetap edukatif.
+                    """
+                )
+
+                # Initialize Chat History
+                if "messages" not in st.session_state:
+                    st.session_state.messages = [
+                        {"role": "assistant", "content": "Halo! Saya **Biografika AI** 🤖✨ Siap bantu kamu belajar Teks Prosedur! Ada yang mau ditanyakan hari ini? ✏️📚"}
+                    ]
+
+                # Display Chat History
+                for message in st.session_state.messages:
+                    with st.chat_message(message["role"]):
+                        st.markdown(message["content"])
+
+                # Chat Input
+                if prompt := st.chat_input("Tanyakan sesuatu tentang Teks Prosedur..."):
+                    st.session_state.messages.append({"role": "user", "content": prompt})
+                    with st.chat_message("user"):
+                        st.markdown(prompt)
+
+                    with st.chat_message("assistant"):
+                        message_placeholder = st.empty()
+                        message_placeholder.markdown("🎨 *Biografika AI sedang berpikir...*")
+                        
+                        formatted_history = []
+                        for msg in st.session_state.messages[:-1]:
+                            role = "user" if msg["role"] == "user" else "model"
+                            formatted_history.append({"role": role, "parts": [msg["content"]]})
+
+                        chat = model.start_chat(history=formatted_history)
+                        response = chat.send_message(prompt)
+                        
+                        message_placeholder.markdown(response.text)
+                        st.session_state.messages.append({"role": "assistant", "content": response.text})
+
+            except Exception as e:
+                st.error(f"Gagal mendapatkan respons AI: {e}")
 
 # --- MEDIA BELAJAR ---
 elif menu == "Media Belajar":
