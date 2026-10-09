@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roda Seru - Ice Breaking Kelas</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff1d6;--card:#fff;--ink:#2d2250;--soft:#f6ecff;--line:#d9c8f0;--btn:#e4457b;--btn2:#2d2250;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241a3d;--card:#33264f;--ink:#fff1d6;--soft:#2b2044;--line:#54418a;--btn2:#fff1d6}}
+:root[data-theme="dark"]{--bg:#241a3d;--card:#33264f;--ink:#fff1d6;--soft:#2b2044;--line:#54418a;--btn2:#fff1d6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:17px;line-height:1.45}
+h1,h2,.btn{font-family:'Baloo 2',Nunito,system-ui,sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:16px;text-align:center}
+h1{font-size:40px;line-height:1;margin:8px 0 4px;color:var(--btn)}
+.tabs{display:flex;gap:8px;margin:14px 0}
+.tab{flex:1;padding:10px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 16px Nunito,system-ui,sans-serif;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--btn2);color:var(--bg);border-color:var(--btn2)}
+.btn{background:var(--btn);color:#fff;border:0;border-radius:18px;padding:12px 28px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 5px 0 #a02156}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #a02156}
+.btn:disabled{opacity:.6;cursor:default}
+.stage{position:relative;width:min(88vw,380px);margin:10px auto}
+.stage svg{width:100%;display:block;transition:transform 4.5s cubic-bezier(.12,.7,.1,1)}
+.ptr{position:absolute;left:50%;top:-10px;width:0;height:0;transform:translateX(-50%);border:14px solid transparent;border-top:28px solid var(--ink);border-bottom:0;z-index:2}
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:18px;margin:16px 0;min-height:120px}
+.cat{display:inline-block;color:#fff;border-radius:999px;padding:2px 14px;font-weight:800;font-size:14px}
+.q{font-family:'Baloo 2',Nunito,sans-serif;font-size:26px;line-height:1.25;margin:10px 0 0}
+textarea{width:100%;min-height:150px;border-radius:14px;border:2px solid var(--line);background:var(--soft);color:var(--ink);padding:12px;font:inherit}
+.pick{font-family:'Baloo 2',Nunito,sans-serif;font-size:44px;line-height:1.1;color:var(--btn);margin:8px 0;word-break:break-word}
+.hide{display:none}
+.note{font-size:14px;opacity:.75}
+label{display:block;margin:10px 0;font-weight:800}
+@media(prefers-reduced-motion:reduce){.stage svg{transition-duration:.01s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <h1>Roda Seru</h1>
+ <p class="note">Ice breaking kelas: putar, baca, lalu lakukan bersama!</p>
+ <div class="tabs" role="tablist">
+  <button class="tab" role="tab" id="t1" aria-selected="true">Putar Roda</button>
+  <button class="tab" role="tab" id="t2" aria-selected="false">Pilih Siswa</button>
+ </div>
+
+ <section id="p1">
+  <div class="stage"><div class="ptr"></div><svg id="wh" viewBox="-110 -110 220 220" aria-label="Roda tantangan"></svg></div>
+  <button class="btn" id="spin">PUTAR!</button>
+  <div class="card" id="res"><p class="note">Tekan tombol PUTAR untuk mendapat tantangan pertamamu.</p></div>
+  <p class="note" id="cnt"></p>
+ </section>
+
+ <section id="p2" class="hide">
+  <div class="card">
+   <label for="nm">Tulis nama siswa, satu nama per baris</label>
+   <textarea id="nm" placeholder="Andi&#10;Bunga&#10;Citra"></textarea>
+   <label><input type="checkbox" id="rm" checked> Jangan pilih nama yang sudah keluar</label>
+   <button class="btn" id="pk">Pilih acak</button>
+   <div class="pick" id="who" aria-live="polite"></div>
+   <p class="note" id="left"></p>
+  </div>
+ </section>
+</div>
+<script>
+const CATS=[
+ {n:"Tanya Seru",c:"#e4457b",d:["Makanan apa yang tidak akan pernah bosan kamu makan?","Kalau punya kekuatan super, kamu pilih apa dan kenapa?","Hal kecil apa yang bikin harimu langsung senang?","Lagu atau film apa yang sedang kamu suka sekarang?","Ke mana kamu ingin liburan jika bebas memilih?","Apa hobi rahasia yang jarang diketahui teman?","Jika jadi hewan, kamu ingin jadi hewan apa?","Pelajaran apa yang paling kamu tunggu hari ini dan kenapa?"]},
+ {n:"Gerak!",c:"#f08a1c",d:["Berdiri, lalu tepuk tangan 10 kali sambil berhitung!","Tirukan gerakan hewan favoritmu, teman-teman menebak!","Joget bebas 10 detik tanpa musik!","Tos dengan 3 teman terdekatmu secepat mungkin!","Berdiri dengan satu kaki selama 10 detik!","Peragakan gaya bangun tidur, tanpa suara!","Regangkan tubuh bersama: tangan ke atas, ke samping, ke bawah!","Ucapkan 'Halo!' dengan gaya robot ke teman di sebelahmu!"]},
+ {n:"Pilih Mana",c:"#2a9d8f",d:["Pilih mana: hujan seharian di rumah atau panas seharian di luar?","Pilih mana: bisa terbang atau bisa menghilang?","Pilih mana: nasi goreng setiap hari atau mi ayam setiap hari?","Pilih mana: tidak punya ponsel seminggu atau tidak ada musik seminggu?","Pilih mana: bangun pagi sekali atau tidur larut malam?","Pilih mana: pandai menyanyi atau pandai menari?","Pilih mana: libur sebulan tapi di rumah saja atau libur seminggu ke mana pun?","Pilih mana: bicara dengan hewan atau mengerti semua bahasa manusia?"]},
+ {n:"Tebak Cepat",c:"#5b4bd6",d:["Sebutkan 5 nama buah dalam 10 detik!","Sebutkan 4 benda berwarna merah di kelas, cepat!","Sebutkan 5 nama kota di Indonesia dalam 10 detik!","Sebutkan 3 kata yang diawali huruf B, sekarang!","Sebutkan 5 hewan yang hidup di air!","Sebutkan 4 profesi yang dimulai huruf P!","Sebutkan 5 jajanan favorit sekolah dalam 10 detik!","Sebutkan 3 hal yang kamu lihat dari jendela, cepat!"]}];
+const $=id=>document.getElementById(id);
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const bag=CATS.map(c=>shuf(c.d));
+const N=8,SEG=360/N;let rot=0,spins=0;
+const wh=$('wh'),pt=(a,r)=>[r*Math.sin(a*Math.PI/180),-r*Math.cos(a*Math.PI/180)];
+let svg='';
+for(let i=0;i<N;i++){
+ const c=CATS[i%4],[x1,y1]=pt(i*SEG,105),[x2,y2]=pt((i+1)*SEG,105),[tx,ty]=pt((i+.5)*SEG,68);
+ svg+=`<path d="M0 0L${x1} ${y1}A105 105 0 0 1 ${x2} ${y2}Z" fill="${c.c}" stroke="#fff" stroke-width="2"/>`+
+ `<text x="${tx}" y="${ty}" fill="#fff" font-size="11" font-weight="800" font-family="Nunito,sans-serif" text-anchor="middle" dominant-baseline="middle" transform="rotate(${(i+.5)*SEG} ${tx} ${ty})">${c.n}</text>`;
+}
+wh.innerHTML=svg+'<circle r="12" fill="#fff"/>';
+$('spin').onclick=()=>{
+ const b=$('spin');b.disabled=true;
+ rot+=1800+Math.random()*360|0;wh.style.transform=`rotate(${rot}deg)`;
+ setTimeout(()=>{
+  const ang=(360-rot%360)%360,i=Math.floor(ang/SEG)%N,k=i%4;
+  if(!bag[k].length)bag[k]=shuf(CATS[k].d);
+  const t=bag[k].pop();spins++;
+  $('res').innerHTML=`<span class="cat" style="background:${CATS[k].c}">${CATS[k].n}</span><p class="q">${t}</p>`;
+  $('cnt').textContent='Putaran ke-'+spins;b.disabled=false;b.textContent='PUTAR LAGI!';
+ },4600);
+};
+function tab(n){
+ $('p1').classList.toggle('hide',n!==1);$('p2').classList.toggle('hide',n!==2);
+ $('t1').setAttribute('aria-selected',n===1);$('t2').setAttribute('aria-selected',n===2);
+}
+$('t1').onclick=()=>tab(1);$('t2').onclick=()=>tab(2);
+let used=[],sig='';
+$('pk').onclick=()=>{
+ const all=$('nm').value.split('\n').map(s=>s.trim()).filter(Boolean);
+ if(!all.length){$('who').textContent='Isi daftar nama dulu.';return}
+ const s=all.join('|');if(s!==sig){sig=s;used=[]}
+ let pool=$('rm').checked?all.filter(n=>!used.includes(n)):all;
+ if(!pool.length){used=[];pool=all;$('left').textContent='Semua sudah terpilih, putaran dimulai ulang.'}
+ const b=$('pk');b.disabled=true;let n=0;
+ const t=setInterval(()=>{$('who').textContent=all[Math.random()*all.length|0];
+  if(++n>14){clearInterval(t);const w=pool[Math.random()*pool.length|0];used.push(w);
+   $('who').textContent=w;b.disabled=false;
+   if($('rm').checked)$('left').textContent='Sisa belum terpilih: '+all.filter(x=>!used.includes(x)).length}},90);
+};
+</script>
+</body>
+</html>
