@@ -56,21 +56,14 @@ def read_file(path):
 
 # --- BERANDA ---
 if menu == "Beranda":
-    # Custom CSS untuk Background Animasi Siswa SMP & Warna Ceria
+    # Custom CSS Background Polkadot Ceria & Pastel
     st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
         background-color: #f7f9fc;
         background-image: radial-gradient(#ffb6c1 2px, transparent 2px), radial-gradient(#87cefa 2px, #f7f9fc 2px);
-        background-size: 50px 50px;
-        background-position: 0 0, 25px 25px;
-    }
-    .main-card {
-        background: white;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        margin-bottom: 15px;
+        background-size: 40px 40px;
+        background-position: 0 0, 20px 20px;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -78,16 +71,15 @@ if menu == "Beranda":
     st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
     st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    # Foto Ilustrasi Siswa & Suasana Belajar Ceria
+    # Header Gambar Canva Hasil Desainmu
     st.image(
-        "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200",
-        caption="🎓 Belajar Teks Prosedur Jadi Lebih Seru, Cepat, dan Pintar!",
-        use_column_width=True
+        "header_beranda.png",
+        use_container_width=True
     )
     
     st.markdown("---")
     
-    # Tampilan Fitur Utama Warna-Warni
+    # Fitur Utama Warna-Warni
     st.markdown("### 🎒 Apa Saja yang BISA Kamu Pelajari di Sini?")
     
     col1, col2 = st.columns(2)
