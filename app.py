@@ -113,7 +113,7 @@ elif menu == "Presensi":
     
     with st.form("presensi_form"):
         nama = st.text_input("Nama Lengkap")
-        kelas = st.selectbox("Kelas", ["X", "XI", "XII", "Lainnya"])
+        kelas = st.selectbox("Kelas", ["VII-1", "VII-2", "VII-3", "VII-4", "VII-5", Lainnya"])
         nisn = st.text_input("NISN / Nomor Absen")
         keterangan = st.radio("Keterangan Kehadiran", ["Hadir", "Izin", "Sakit"])
         submitted = st.form_submit_button("Kirim Presensi")
