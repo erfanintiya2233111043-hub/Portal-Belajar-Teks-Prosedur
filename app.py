@@ -37,24 +37,50 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 2. Sidebar Navigation
-st.sidebar.title("Teks Prosedur")
+# --- STYLING SIDEBAR (HIJAU PASTEL) ---
+st.markdown("""
+<style>
+/* Background Navigasi Sidebar Hijau Pastel Lembut */
+[data-testid="stSidebar"] {
+    background-color: #e8f5e9 !important;
+}
+
+/* Warna judul navigasi */
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+    color: #2e7d32 !important;
+}
+
+/* Efek Hover pada Pilihan Navigasi */
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label:hover {
+    background-color: #c8e6c9 !important;
+    border-radius: 8px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# --- NAVIGASI PORTAL DENGAN IKON & PEMETAAN AMAN ---
+st.sidebar.title("📌 Navigasi Portal")
 st.sidebar.caption("Belajar • Berlatih • Berkarya")
 
-menu = st.sidebar.radio(
-    "Navigasi Portal",
-    [
-        "Beranda",
-        "Presensi",
-        "Ice Breaking",
-        "Modul Pembelajaran",
-        "Materi",
-        "Analisis Teks",
-        "LKPD",
-        "Tugas Praktik",
-        "Tanya Biografika",
-        "Media Belajar"
-    ]
-)
+# Daftar menu ber-ikon yang dipetakan ke nama menu asli
+menu_options = {
+    "🏠 Beranda": "Beranda",
+    "📝 Presensi": "Presensi",
+    "🎮 Ice Breaking": "Ice Breaking",
+    "📖 Modul Pembelajaran": "Modul Pembelajaran",
+    "📚 Materi": "Materi",
+    "🔍 Analisis Teks": "Analisis Teks",
+    "✍️ LKPD": "LKPD",
+    "🎨 Tugas Praktik": "Tugas Praktik",
+    "🤖 Tanya Biografika": "Tanya Biografika",
+    "🍿 Media Belajar": "Media Belajar"
+}
+
+# Tampilkan pilihan menu di sidebar
+selected_label = st.sidebar.radio("Pilih Halaman:", list(menu_options.keys()))
+
+# Ambil nama menu asli
+menu = menu_options[selected_label]
 
 def read_file(path):
     if os.path.exists(path):
