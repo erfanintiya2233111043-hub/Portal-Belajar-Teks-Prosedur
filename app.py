@@ -1,9 +1,8 @@
-
 import streamlit as st
 import google.generativeai as genai
 import os
 
-# Configuration (Harus rata kiri paling atas!)
+# Configuration (HANYA 1 KALI DI SINI)
 st.set_page_config(
     page_title="Portal Belajar Teks Prosedur",
     page_icon="📚",
