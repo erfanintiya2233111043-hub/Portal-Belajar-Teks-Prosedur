@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ice Breaking Games</title>
+<style>
+:root{--bg:#fff8ee;--card:#fff;--text:#2b2433;--muted:#6f6679;--accent:#ff6b4a;--accent2:#7b5cff;--border:#eadfce;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1722;--card:#262031;--text:#f5eefc;--muted:#a79db5;--border:#3a3247}}
+:root[data-theme="dark"]{--bg:#1b1722;--card:#262031;--text:#f5eefc;--muted:#a79db5;--border:#3a3247}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+main{max-width:640px;margin:0 auto;padding:20px 16px 40px}
+h1{margin:0;font-size:1.7rem}
+.sub{color:var(--muted);margin:4px 0 16px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px}
+.tab{flex:0 0 auto;border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:999px;font-size:.95rem;cursor:pointer}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px}
+.big{font-size:1.35rem;font-weight:600;min-height:110px;display:flex;align-items:center;justify-content:center;text-align:center;margin:0 0 16px}
+button.go{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0;border-radius:12px;padding:12px 20px;font-size:1rem;font-weight:600;cursor:pointer;width:100%}
+button.go:active{transform:scale(.98)}
+.row{display:flex;gap:10px}
+.row button{flex:1}
+.alt{background:var(--card)!important;color:var(--text)!important;border:1px solid var(--border)!important}
+textarea{width:100%;min-height:90px;border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:12px;padding:10px;font:inherit;margin-bottom:12px}
+canvas{display:block;margin:0 auto 12px;max-width:100%}
+.timer{font-size:2.6rem;font-weight:700;text-align:center;margin:0 0 12px;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:.75rem;color:var(--muted);margin-bottom:8px}
+.hide{display:none}
+</style>
+</head>
+<body>
+<main>
+<h1>🧊 Ice Breaking Games</h1>
+<p class="sub">Cairkan suasana dalam hitungan detik.</p>
+<div class="tabs" id="tabs"></div>
+<div id="panel" class="card"></div>
+</main>
+<script>
+const Q=["Kalau bisa liburan ke mana saja besok, kamu pilih ke mana?","Makanan apa yang tidak pernah bikin kamu bosan?","Apa hal paling random yang kamu punya di tas/kantong sekarang?","Film atau serial apa yang bisa kamu tonton berulang kali?","Skill apa yang ingin kamu kuasai dalam 1 bulan?","Apa kebiasaan kecil yang bikin harimu lebih baik?","Siapa orang yang paling menginspirasimu dan kenapa?","Apa momen paling memalukan yang sekarang lucu untuk diceritakan?","Kalau punya superpower, kamu pilih apa?","Lagu apa yang paling sering kamu putar akhir-akhir ini?","Apa pekerjaan impianmu waktu kecil?","Kalau jadi hewan, kamu mau jadi hewan apa?","Hal apa yang bikin kamu tertawa paling keras?","Aplikasi apa yang paling sering kamu buka selain chat?","Apa fakta unik tentang dirimu yang jarang orang tahu?"];
+const W=[["Kopi ☕","Teh 🍵"],["Pantai 🏖️","Gunung ⛰️"],["Nasi 🍚","Mie 🍜"],["Pagi 🌅","Malam 🌙"],["Kucing 🐱","Anjing 🐶"],["Hujan 🌧️","Panas ☀️"],["Baca buku 📚","Nonton film 🎬"],["Pedas 🌶️","Manis 🍰"],["Liburan rame-rame 👯","Liburan sendiri 🧳"],["Bisa terbang 🕊️","Bisa menghilang 👻"],["Tahu isi pikiran orang 🧠","Bisa balik ke masa lalu ⏪"],["Sate 🍢","Bakso 🥣"]];
+const C=["Tirukan suara hewan, tebak oleh teman!","Ceritakan dirimu dalam 3 emoji.","Berdiri dan ajak tos 3 orang berbeda.","Nyanyikan 1 baris lagu favoritmu.","Ceritakan hari ini dengan gaya reporter berita.","Pujilah orang di sebelah kananmu dengan tulus.","Peragakan hobimu tanpa bicara.","Sebutkan 5 benda berwarna merah dalam 10 detik!","Buat yel-yel singkat untuk kelompok ini.","Ceritakan 2 kejadian benar dan 1 bohong (Dua Kebenaran Satu Kebohongan)."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const games={
+"Pertanyaan":()=>`<span class="tag">PERTANYAAN ACAK</span><p class="big" id="o">Tekan tombol untuk mulai!</p><button class="go" onclick="o.textContent=pick(Q)">Pertanyaan berikutnya</button>`,
+"Pilih Salah Satu":()=>`<span class="tag">LEBIH SUKA YANG MANA?</span><p class="big" id="o">Siap memilih?</p><div class="row"><button class="go alt" id="a" onclick="w()">Acak</button></div>`,
+"Tantangan":()=>`<span class="tag">TANTANGAN SERU</span><p class="big" id="o">Siapa yang berani?</p><div class="timer" id="t">30</div><div class="row"><button class="go" onclick="ch()">Beri tantangan</button><button class="go alt" onclick="tm()">Mulai timer</button></div>`,
+"Roda Nama":()=>`<span class="tag">PILIH PESERTA ACAK (satu nama per baris)</span><textarea id="n">Andi
+Budi
+Citra
+Dewi
+Eko</textarea><canvas id="cv" width="300" height="300"></canvas><p class="big" id="o" style="min-height:40px">—</p><button class="go" onclick="spin()">Putar!</button>`
+};
+let cur="Pertanyaan",ti;
+function w(){const p=pick(W);o.innerHTML=`<span>${p[0]}<br><small style="color:var(--muted)">atau</small><br>${p[1]}</span>`}
+function ch(){o.textContent=pick(C);document.getElementById("t").textContent=30;clearInterval(ti)}
+function tm(){clearInterval(ti);let s=30;t.textContent=s;ti=setInterval(()=>{s--;t.textContent=s;if(s<=0){clearInterval(ti);t.textContent="⏰ Habis!"}},1000)}
+let ang=0,spinning=false;
+function names(){return document.getElementById("n").value.split("\n").map(x=>x.trim()).filter(Boolean)}
+function draw(){const c=document.getElementById("cv");if(!c)return;const x=c.getContext("2d"),L=names(),n=L.length||1,r=150;x.clearRect(0,0,300,300);
+const col=["#ff6b4a","#7b5cff","#ffb020","#22b8a0","#e14d9b","#4b8bff"];
+for(let i=0;i<n;i++){const a0=ang+i*2*Math.PI/n,a1=a0+2*Math.PI/n;x.beginPath();x.moveTo(r,r);x.arc(r,r,r-4,a0,a1);x.fillStyle=col[i%col.length];x.fill();
+x.save();x.translate(r,r);x.rotate((a0+a1)/2);x.fillStyle="#fff";x.font="bold 15px sans-serif";x.textAlign="right";x.fillText((L[i]||"").slice(0,12),r-16,5);x.restore()}
+x.fillStyle="#2b2433";x.beginPath();x.moveTo(r*2-2,r-10);x.lineTo(r*2-26,r);x.lineTo(r*2-2,r+10);x.fill()}
+function spin(){if(spinning)return;const L=names();if(!L.length)return;spinning=true;o.textContent="…";
+const total=(5+Math.random()*3)*2*Math.PI,start=ang,t0=performance.now(),dur=3500;
+(function f(now){const p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);ang=start+total*e;draw();
+if(p<1)requestAnimationFrame(f);else{spinning=false;const n=L.length,pos=((-ang)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);o.textContent="🎉 "+L[Math.floor(pos/(2*Math.PI/n))%n]}})(t0)}
+function render(){document.getElementById("tabs").innerHTML=Object.keys(games).map(k=>`<button class="tab ${k===cur?"on":""}" onclick="cur='${k}';render()">${k}</button>`).join("");
+clearInterval(ti);document.getElementById("panel").innerHTML=games[cur]();if(cur==="Roda Nama"){draw();document.getElementById("n").addEventListener("input",draw)}}
+render();
+</script>
+</body>
+</html>
