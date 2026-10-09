@@ -208,7 +208,6 @@ elif menu == "Ice Breaking":
                 "https://gemini.google.com/",
                 use_container_width=True
             )
-```
 
 # --- MODUL PEMBELAJARAN ---
 elif menu == "Modul Pembelajaran":
