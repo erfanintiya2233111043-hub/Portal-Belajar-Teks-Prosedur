@@ -87,9 +87,9 @@ st.markdown("""
 st.sidebar.title("📌 Navigasi Portal")
 st.sidebar.caption("Belajar • Berlatih • Berkarya")
 
-# Daftar menu ber-ikon yang dipetakan ke nama menu asli
+# Daftar menu ber-ikon (Buku Panduan paling atas)
 menu_options = {
-    "📘 Buku Panduan": "Buku Panduan"
+    "📘 Buku Panduan": "Buku Panduan",
     "🏠 Beranda": "Beranda",
     "📝 Presensi": "Presensi",
     "🎮 Ice Breaking": "Ice Breaking",
@@ -107,12 +107,6 @@ selected_label = st.sidebar.radio("Pilih Halaman:", list(menu_options.keys()))
 
 # Ambil nama menu asli
 menu = menu_options[selected_label]
-
-def read_file(path):
-    if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    return None
 
 # 3. Pages
 if menu == "Beranda":
