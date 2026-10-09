@@ -60,10 +60,9 @@ if menu == "Beranda":
     st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
-        background-color: #f7f9fc;
-        background-image: radial-gradient(#ffb6c1 2px, transparent 2px), radial-gradient(#87cefa 2px, #f7f9fc 2px);
-        background-size: 40px 40px;
-        background-position: 0 0, 20px 20px;
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -71,7 +70,7 @@ if menu == "Beranda":
     st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
     st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    # Header Gambar Canva Hasil Desainmu dari Folder assets
+    # Header Gambar Canva dari Folder assets
     st.image(
         "assets/header_beranda.png",
         use_container_width=True
@@ -100,6 +99,15 @@ if menu == "Beranda":
 
 # --- PRESENSI ---
 # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "Presensi":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Presensi":
     st.header("📋 Presensi Kehadiran Siswa")
     st.write("Silakan isi formulir kehadiran di bawah ini sebelum memulai kegiatan pembelajaran.")
@@ -118,7 +126,15 @@ elif menu == "Presensi":
                 st.error("Mohon lengkapi Nama dan NISN/Nomor Absen!")
 
 # --- ICE BREAKING ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "ice breaking":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Ice Breaking":
     st.header("🎮 Ice Breaking: Kuis Tebak Kata Teks Prosedur")
     st.write("Segarkan pikiranmu sebelum belajar!")
@@ -132,7 +148,15 @@ elif menu == "Ice Breaking":
         st.success("Tepat sekali! 👍")
 
 # --- MODUL PEMBELAJARAN ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "Modul Pembelajaran":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Modul Pembelajaran":
     st.header("📘 Modul Pembelajaran")
     st.write("Unduh dan pelajari modul ajar resmi Teks Prosedur.")
@@ -150,7 +174,15 @@ elif menu == "Modul Pembelajaran":
         st.info("File Modul Ajar dapat diakses dari menu repositori GitHub kamu.")
 
 # --- MATERI ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "Materi":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Materi":
     st.header("📚 Materi Pembelajaran Teks Prosedur")
     
@@ -182,7 +214,15 @@ elif menu == "Materi":
                 st.write(f"Materi {title} siap dipelajari.")
 
 # --- ANALISIS TEKS ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "Analisis Teks":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Analisis Teks":
     st.header("🔍 Analisis Teks Prosedur")
     st.write("Lakukan analisis struktur dan unsur kebahasaan pada teks prosedur yang kamu pilih.")
@@ -197,7 +237,15 @@ elif menu == "Analisis Teks":
             st.warning("Masukkan teks prosedur terlebih dahulu.")
 
 # --- LKPD ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "lkpd":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "LKPD":
     st.header("📝 Lembar Kerja Peserta Didik (LKPD)")
     st.write("Kerjakan tugas lembar kerja untuk menguji pemahamanmu.")
@@ -210,7 +258,15 @@ elif menu == "LKPD":
     """)
 
 # --- TUGAS PRAKTIK ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "Tugas Praktik":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Tugas Praktik":
     st.header("📤 Pengumpulkan Tugas Praktik")
     st.write("Unggah hasil karya teks prosedur atau scan QR Code di bawah ini.")
@@ -228,7 +284,15 @@ elif menu == "Tugas Praktik":
             st.warning("Isi draf teks prosedurmu terlebih dahulu.")
 
 # --- TANYA BIOGRAFIKA (AI INTEGRATED) ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "Tanya Biografika":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Tanya Biografika":
         # Desain Header Full Warna Gradasi
         st.markdown("""
@@ -313,7 +377,15 @@ elif menu == "Tanya Biografika":
                 st.error(f"Gagal mendapatkan respons AI: {e}")
 
 # --- MEDIA BELAJAR ---
-# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+if menu == "Media Belajar":
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc;
+        background-image: linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+    }
 elif menu == "Media Belajar":
     st.header("🖼️ Media Belajar Interaktif")
     st.write("Unduh media presentasi dan materi visual pendukung.")
