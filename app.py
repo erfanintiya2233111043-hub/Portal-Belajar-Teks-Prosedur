@@ -217,7 +217,7 @@ elif menu == "Analisis Teks":
         else:
             st.warning("Masukkan teks prosedur terlebih dahulu.")
 
- --- LKPD ---
+ # --- LKPD ---
 elif menu == "LKPD":
     st.markdown("""
     <style>
@@ -230,8 +230,7 @@ elif menu == "LKPD":
 
     st.header("📝 Lembar Kerja Peserta Didik (LKPD)")
     st.write("Kerjakan latihan interaktif berikut secara online:")
-    st.link_button("🎮 Buka LKPD Interaktif (Educaplay)", "https://www.educaplay.com/learning-resources/22297713-lk_kelas_c.html", use_container_width=True)
-    """)
+    st.link_button("🎮 Buka LKPD Interaktif (Educaplay)", "https://www.educaplay.com", use_container_width=True)
 
 # --- TUGAS PRAKTIK ---
 elif menu == "Tugas Praktik":
