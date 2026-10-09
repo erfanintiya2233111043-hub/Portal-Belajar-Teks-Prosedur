@@ -1,0 +1,12 @@
+CIRI-CIRI TEKS PROSEDUR
+1. Berisi keterangan
+Artinya ada informasi tambahan yang membuat langkah menjadi jelas, seperti jumlah (secukupnya, 1 bungkus), waktu (selama 3 menit), tempat (dalam panci), dan cara (diaduk rata). Tanpa keterangan, pembaca bisa bingung.
+
+2. Menggunakan langkah berurutan
+Urutan tidak boleh tertukar. Langkah biasanya diberi nomor atau ditandai kata urutan.
+
+3. Berisi kalimat perintah (imperatif)
+Kalimat langsung menyuruh melakukan sesuatu. Contohnya: Rebus air, Aduk rata.
+
+4. Menggunakan kata penghubung (konjungsi)
+Konjungsi menyambung langkah dan menunjukkan urutannya, misalnya lalu, kemudian, setelah itu, hingga.

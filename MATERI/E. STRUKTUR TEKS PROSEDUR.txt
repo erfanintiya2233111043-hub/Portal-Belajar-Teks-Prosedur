@@ -1,0 +1,17 @@
+STRUKTUR TEKS PROSEDUR
+1. Judul atau Tujuan Kegiatan
+Menjelaskan apa yang akan dilakukan. Contohnya, judul “Cara Membuat Mi Instan” sudah memberi tahu pembaca tujuan teksnya.
+
+2. Bahan dan Alat
+Daftar semua yang harus disiapkan sebelum mulai.
+
+Bahan adalah sesuatu yang berkurang atau habis saat dipakai, seperti mi, air, dan gula.
+Alat adalah benda yang tidak habis saat dipakai, seperti panci, sendok, dan mangkuk.
+
+3. Langkah-Langkah
+Petunjuk berurutan yang harus dilakukan dari awal sampai selesai. Ini bagian yang paling utama dan biasanya paling panjang.
+
+4. Penutup (Opsional)
+Berisi penegasan ulang, kesimpulan, atau harapan agar pembaca berhasil. Contohnya: “Selamat mencoba!” Kata opsional berarti boleh ada, boleh tidak.
+
+Ingat urutannya: Judul/Tujuan → Bahan dan Alat → Langkah-Langkah → Penutup.
