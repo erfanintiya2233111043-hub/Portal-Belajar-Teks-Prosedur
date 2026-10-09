@@ -223,8 +223,8 @@ elif menu == "Tanya Biografika":
         """)
     else:
         try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-2.0-flash',
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel('gemini-2.0-flash',
                 system_instruction="""
                 Kamu adalah Biografika AI, tutor pembelajaran Bahasa Indonesia yang ramah, komunikatif, dan cerdas.
                 Tugas utamamu adalah membantu siswa memahami Teks Prosedur (pengertian, tujuan, ciri, kebahasaan, struktur, dan pembuatan teks).
