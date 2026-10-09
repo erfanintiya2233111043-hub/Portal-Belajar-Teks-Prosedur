@@ -56,7 +56,7 @@ def read_file(path):
 
 # --- BERANDA ---
 if menu == "Beranda":
-    # Custom CSS Background Polkadot Ceria & Pastel
+    # Custom CSS Background Grid Buku Tulis (Clean & Estetik)
     st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -99,6 +99,7 @@ if menu == "Beranda":
     """)
 
 # --- PRESENSI ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Presensi":
     st.header("📋 Presensi Kehadiran Siswa")
     st.write("Silakan isi formulir kehadiran di bawah ini sebelum memulai kegiatan pembelajaran.")
@@ -117,6 +118,7 @@ elif menu == "Presensi":
                 st.error("Mohon lengkapi Nama dan NISN/Nomor Absen!")
 
 # --- ICE BREAKING ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Ice Breaking":
     st.header("🎮 Ice Breaking: Kuis Tebak Kata Teks Prosedur")
     st.write("Segarkan pikiranmu sebelum belajar!")
@@ -130,6 +132,7 @@ elif menu == "Ice Breaking":
         st.success("Tepat sekali! 👍")
 
 # --- MODUL PEMBELAJARAN ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Modul Pembelajaran":
     st.header("📘 Modul Pembelajaran")
     st.write("Unduh dan pelajari modul ajar resmi Teks Prosedur.")
@@ -147,6 +150,7 @@ elif menu == "Modul Pembelajaran":
         st.info("File Modul Ajar dapat diakses dari menu repositori GitHub kamu.")
 
 # --- MATERI ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Materi":
     st.header("📚 Materi Pembelajaran Teks Prosedur")
     
@@ -178,6 +182,7 @@ elif menu == "Materi":
                 st.write(f"Materi {title} siap dipelajari.")
 
 # --- ANALISIS TEKS ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Analisis Teks":
     st.header("🔍 Analisis Teks Prosedur")
     st.write("Lakukan analisis struktur dan unsur kebahasaan pada teks prosedur yang kamu pilih.")
@@ -192,6 +197,7 @@ elif menu == "Analisis Teks":
             st.warning("Masukkan teks prosedur terlebih dahulu.")
 
 # --- LKPD ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "LKPD":
     st.header("📝 Lembar Kerja Peserta Didik (LKPD)")
     st.write("Kerjakan tugas lembar kerja untuk menguji pemahamanmu.")
@@ -204,6 +210,7 @@ elif menu == "LKPD":
     """)
 
 # --- TUGAS PRAKTIK ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Tugas Praktik":
     st.header("📤 Pengumpulkan Tugas Praktik")
     st.write("Unggah hasil karya teks prosedur atau scan QR Code di bawah ini.")
@@ -221,6 +228,7 @@ elif menu == "Tugas Praktik":
             st.warning("Isi draf teks prosedurmu terlebih dahulu.")
 
 # --- TANYA BIOGRAFIKA (AI INTEGRATED) ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Tanya Biografika":
         # Desain Header Full Warna Gradasi
         st.markdown("""
@@ -305,6 +313,7 @@ elif menu == "Tanya Biografika":
                 st.error(f"Gagal mendapatkan respons AI: {e}")
 
 # --- MEDIA BELAJAR ---
+# Custom CSS Background Grid Buku Tulis (Clean & Estetik)
 elif menu == "Media Belajar":
     st.header("🖼️ Media Belajar Interaktif")
     st.write("Unduh media presentasi dan materi visual pendukung.")
