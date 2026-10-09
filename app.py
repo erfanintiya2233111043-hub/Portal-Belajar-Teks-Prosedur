@@ -3,14 +3,14 @@ import streamlit as st
 import google.generativeai as genai
 import os
 
-# Configuration (Cukup 1 kali saja di paling atas!)
+# Configuration (Harus rata kiri paling atas!)
 st.set_page_config(
     page_title="Portal Belajar Teks Prosedur",
     page_icon="📚",
     layout="wide"
 )
 
-# CSS Background Grid Buku Tulis Global (Aktif di Semua Menu)
+# CSS Background Grid Buku Tulis Global
 st.markdown("""
 <style>
 [data-testid="stAppViewContainer"] {
