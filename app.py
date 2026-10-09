@@ -109,48 +109,107 @@ elif menu == "Presensi":
     st.write("Klik tombol di bawah untuk mengisi formulir kehadiran siswa:")
     st.link_button("📝 Buka Google Form Presensi", "https://docs.google.com/forms/d/e/1FAIpQLSfxP_VxR9j-FxgkbjNGGhLGPsE9NxV6bNDyUuyP60r0jcNAIg/viewform?usp=header", use_container_width=True)
 
+```python
 # --- ICE BREAKING ---
 elif menu == "Ice Breaking":
+    import streamlit as st
+    import streamlit.components.v1 as components
+    from pathlib import Path
+
+    # Mengatur lokasi folder assets
+    BASE_DIR = Path(__file__).resolve().parent
+    ASSETS_DIR = BASE_DIR / "assets"
+
+    # Tampilan halaman
     st.markdown("""
-    <style>
-    [data-testid="stAppViewContainer"] {
-        background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fff1f2 100%) !important;
-        background-image: none !important;
-    }
-    </style>
+        <style>
+        [data-testid="stAppViewContainer"] {
+            background: linear-gradient(
+                135deg,
+                #fdf2f8 0%,
+                #fce7f3 50%,
+                #fff1f2 100%
+            ) !important;
+        }
+        </style>
     """, unsafe_allow_html=True)
 
     st.header("🎮 Ice Breaking & Hiburan")
-    st.write("Yuk, rileks sejenak sebelum atau sesudah belajar!")
+    st.write(
+        "Yuk, rileks sejenak sebelum atau sesudah belajar! "
+        "Pilih permainan yang kamu sukai dan bersenang-senanglah! 🎉"
+    )
 
-    tab1, tab2, tab3 = st.tabs(["🎲 Ice Breaking 1", "🎯 Ice Breaking 2", "🎬 Video & AI"])
+    tab1, tab2, tab3 = st.tabs([
+        "🎲 Ice Breaking 1",
+        "🎯 Ice Breaking 2",
+        "🎬 Video & AI"
+    ])
 
-    # File 1: assets/ice_breaking_1.html
+    # TAB 1: ICE BREAKING 1
     with tab1:
-        try:
-            with open("assets/ice_breaking_1.html", "r", encoding="utf-8") as f:
-                components.html(f.read(), height=650, scrolling=True)
-        except FileNotFoundError:
-            st.error("File 'assets/ice_breaking_1.html' belum terdeteksi. Pastikan nama file di GitHub sudah diubah.")
+        st.subheader("🎲 Permainan Seru Pertama")
 
-    # File 2: assets/ice_breaking_2.html
+        file_1 = ASSETS_DIR / "ice_breaking_1.html"
+
+        if file_1.exists():
+            with open(file_1, "r", encoding="utf-8") as f:
+                html_content = f.read()
+
+            components.html(
+                html_content,
+                height=650,
+                scrolling=True
+            )
+        else:
+            st.error(
+                "File ice_breaking_1.html tidak ditemukan di folder assets."
+            )
+
+    # TAB 2: ICE BREAKING 2
     with tab2:
-        try:
-            with open("assets/ice_breaking_2.html", "r", encoding="utf-8") as f:
-                components.html(f.read(), height=650, scrolling=True)
-        except FileNotFoundError:
-            st.error("File 'assets/ice_breaking_2.html' belum terdeteksi. Pastikan nama file di GitHub sudah diubah.")
+        st.subheader("🎯 Permainan Seru Kedua")
 
-    # Tab Link Media
+        file_2 = ASSETS_DIR / "ice_breaking_2.html"
+
+        if file_2.exists():
+            with open(file_2, "r", encoding="utf-8") as f:
+                html_content = f.read()
+
+            components.html(
+                html_content,
+                height=650,
+                scrolling=True
+            )
+        else:
+            st.error(
+                "File ice_breaking_2.html tidak ditemukan di folder assets."
+            )
+
+    # TAB 3: VIDEO DAN AI
     with tab3:
         col1, col2 = st.columns(2)
+
         with col1:
             st.subheader("🎬 Video Seru")
-            st.link_button("▶️ Tonton di YouTube", "https://youtu.be/PV9WzWksz0c?feature=shared", use_container_width=True)
+            st.write("Tonton video untuk menyegarkan pikiran!")
+
+            st.link_button(
+                "▶️ Tonton di YouTube",
+                "https://youtu.be/PV9WzWksz0c?feature=shared",
+                use_container_width=True
+            )
 
         with col2:
             st.subheader("🤖 AI Generator")
-            st.link_button("✨ Buka Tool AI", "https://gemini.google.com", use_container_width=True)
+            st.write("Coba gunakan AI untuk berkreasi!")
+
+            st.link_button(
+                "✨ Buka Gemini AI",
+                "https://gemini.google.com/",
+                use_container_width=True
+            )
+```
 
 # --- MODUL PEMBELAJARAN ---
 elif menu == "Modul Pembelajaran":
