@@ -20,13 +20,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# 1. Configuration & Styling
-    page_title="Portal Belajar Teks Prosedur",
-    page_icon="📚",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
 st.markdown("""
 <style>
     .main-header {
