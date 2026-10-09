@@ -56,18 +56,36 @@ def read_file(path):
 
 # --- BERANDA ---
 if menu == "Beranda":
-    st.markdown('<div class="main-header">Selamat Datang di Portal Belajar Teks Prosedur</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">Media Pembelajaran Interaktif Bahasa Indonesia</div>', unsafe_allow_html=True)
+    st.title("✏️📚 Portal Belajar Teks Prosedur 🎨🔤")
+    st.caption("✨ Media Pembelajaran Bahasa Indonesia Interaktif untuk Siswa/i SMP ✨")
     
-    st.image("https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=80", use_column_width=True)
+    # Banner Gambar Sekolah & Alat Tulis Ceria
+    st.image(
+        "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1200",
+        caption="🎓 Belajar Teks Prosedur Jadi Lebih Seru, Cepat, dan Pintar!",
+        use_column_width=True
+    )
     
-    col1, col2, col3 = st.columns(3)
+    st.markdown("---")
+    
+    # Tampilan Fitur Utama Warna-Warni
+    st.markdown("### 🎒 Apa Saja yang BISA Kamu Pelajari di Sini?")
+    
+    col1, col2 = st.columns(2)
+    
     with col1:
-        st.info("📖 **Materi Lengkap**\nPahami konsep, struktur, dan kaidah kebahasaan teks prosedur.")
+        st.info("📚 **1. Pahami Struktur & Ciri (A-Z)**\nPelajari langkah-langkah membuat teks prosedur yang runtut, lengkap dari tujuan sampai penutup!")
+        st.success("✏️ **2. Latihan Praktis & LKPD**\nAsah keterampilan menulis teks prosedur dengan tugas interaktif yang siap dikerjakan.")
+        
     with col2:
-        st.success("📝 **Latihan & Praktik**\nUji pemahamanmu melalui LKPD dan tugas praktik interaktif.")
-    with col3:
-        st.warning("🤖 **Tanya Biografika (AI)**\nDiskusi dan bertanya kapan saja bersama asisten kecerdasan buatan.")
+        st.warning("✒️ **3. Kaidah Kebahasaan**\nKuasai penggunaan kata kerja imperatif, konjungsi urutan, dan kalimat perintah.")
+        st.error("🤖 **4. Tanya Biografika AI**\nBingung buat teks prosedur? Tanya langsung ke AI tutor pintar yang siap bantu 24/7!")
+
+    st.markdown("""
+    ---
+    ### 🏫 Yuk, Mulai Belajar!
+    Pilih menu navigasi di **sidebar sebelah kiri** 👈 untuk mulai menjelajahi materi, melakukan *ice breaking*, atau bertanya langsung pada **Tanya Biografika**!
+    """)
 
 # --- PRESENSI ---
 elif menu == "Presensi":
